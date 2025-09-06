@@ -1,6 +1,5 @@
 // เรียกใช้ dependencies
 const express = require("express");
-const sqlite3 = require('sqlite3').verbose();
 const multer = require("multer");
 const session = require('express-session');
 const env = require('dotenv').config();
