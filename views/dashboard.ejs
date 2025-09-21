@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | GIGAGADGET</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            font-family: "Prompt", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('ownerNav')%>
+        <div class="flex justify-center">
+            <div class="flex flex-col w-3/4">
+                <div class="my-8">
+                    <div class="space-x-2">
+                        <i class="fa-solid fa-gauge text-black text-3xl"></i>
+                        <span class="text-black text-3xl font-bold">แดชบอร์ด</span>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center bg-gray-50 w-full rounded-xl p-8 py-5">
+                    <div class="flex justify-between w-9/10 gap-8 my-7">
+                        <div class="w-1/4 p-5 bg-green-100 text-center rounded-xl">
+                            <p class="mt-1">ยอดขายวันนี้</p>
+                            <h1 class="text-5xl my-5 pt-1 font-bold text-green-500">20,598฿</h1>
+                        </div>
+                        <div class="w-1/5 p-5 bg-blue-100 text-center rounded-xl">
+                            <p class="mt-1">คำสั่งซื้อที่รอดำเนินการ</p>
+                            <h1 class="text-6xl my-5 font-bold text-blue-500">12</h1>
+                        </div>
+                        <div class="w-1/5 p-5 bg-purple-100 text-center rounded-xl">
+                            <p class="mt-1">ลูกค้าใหม่วันนี้</p>
+                            <h1 class="text-6xl my-5 font-bold text-purple-500">0</h1>
+                        </div>
+                        <div class="w-1/5 p-5 bg-yellow-100 text-center rounded-xl">
+                            <p class="mt-1">สินค้าคงคลังต่ำ</p>
+                            <h1 class="text-6xl my-5 font-bold text-yellow-500">15</h1>
+                        </div>
+                    </div>
+
+                    <div class="w-19/20 my-7">
+                        <h1 class="text-2xl my-4 px-1">คำสั่งซื้อล่าสุด</h1>
+                        <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <thead class="bg-gray-100 text-black rounded-t-lg">
+                                <tr>
+                                    <th class="py-3 px-6 text-left rounded-tl-lg">เลขคำสั่งซื้อ</th>
+                                    <th class="py-3 px-6 text-left">ชื่อลูกค้า</th>
+                                    <th class="py-3 px-6 text-left">ยอดสุทธิ</th>
+                                    <th class="py-3 px-6 text-left">วันที่ทำการสั่งซื้อ</th>
+                                    <th class="py-3 px-6 text-left">สถานะการชำระเงิน</th>
+                                    <th class="py-3 px-6 text-left rounded-tr-lg">สถานะการจัดส่ง</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-t border-gray-200">
+                                    <td class="py-3 px-6 rounded-bl-lg">#12346</td>
+                                    <td class="py-3 px-6">Firstname Lastname</td>
+                                    <td class="py-3 px-6">฿1,500</td>
+                                    <td class="py-3 px-6">2025-09-12</td>
+                                    <td class="py-2 px-4">
+                                        <span
+                                            class="bg-green-200 text-green-800 py-1 px-4 rounded-full text-sm">ชำระเงินสำเร็จ</span>
+                                    </td>
+                                    <td class="py-2 px-4 rounded-br-lg">
+                                        <span
+                                            class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm">กำลังจัดส่ง</span>
+                                    </td>
+                                </tr>
+                                <tr class="border-t border-gray-200">
+                                    <td class="py-3 px-6">#12345</td>
+                                    <td class="py-3 px-6">Firstname Lastname</td>
+                                    <td class="py-3 px-6">฿2,200</td>
+                                    <td class="py-3 px-6">2025-09-11</td>
+                                    <td class="py-2 px-4">
+                                        <span
+                                            class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm">รอการตรวจสอบ</span>
+                                    </td>
+                                    <td class="py-2 px-4">
+                                        <span
+                                            class="bg-gray-200 text-gray-800 py-1 px-4 rounded-full text-sm">รอการจัดส่ง</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="flex w-19/20 my-6 gap-8">
+                        <div class="w-4/7">
+                            <h1 class="text-2xl my-4 px-1">สินค้าขายดี</h1>
+                            <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <thead class="bg-gray-100 text-black rounded-t-lg">
+                                    <tr>
+                                        <th class="py-3 px-6 text-left rounded-tl-lg">อันดับ</th>
+                                        <th class="py-3 px-6 text-left">เลขสินค้า</th>
+                                        <th class="py-3 px-6 text-left">ชื่อสินค้า</th>
+                                        <th class="py-3 px-6 text-left">ยอดขาย</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">1</td>
+                                        <td class="py-3 px-6">#123</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-green-200 text-green-800 py-1 px-4 rounded-full text-sm">19</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">2</td>
+                                        <td class="py-3 px-6">#111</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-green-200 text-green-800 py-1 px-4 rounded-full text-sm">15</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">3</td>
+                                        <td class="py-3 px-6">#213</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-green-200 text-green-800 py-1 px-4 rounded-full text-sm">12</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="w-3/7">
+                            <h1 class="text-2xl my-4 px-1">สินค้าคงคลังต่ำ</h1>
+                            <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                                <thead class="bg-gray-100 text-black rounded-t-lg">
+                                    <tr>
+                                        <th class="py-3 px-6 text-left">เลขสินค้า</th>
+                                        <th class="py-3 px-6 text-left">ชื่อสินค้า</th>
+                                        <th class="py-3 px-6 text-left">คงเหลือ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">#111</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm">0</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">#222</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm">2</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-t border-gray-200">
+                                        <td class="py-3 px-6 rounded-bl-lg">#333</td>
+                                        <td class="py-3 px-6">Product Name</td>
+                                        <td class="py-2 px-4">
+                                            <span
+                                                class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm">4</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
