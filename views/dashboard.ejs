@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | GIGAGADGET</title>
+    <title>Dashboard - GIGAGADGET</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -18,15 +18,15 @@
 
 <body>
     <%- include('ownerNav')%>
-        <div class="flex justify-center">
+        <div class="flex justify-center py-2">
             <div class="flex flex-col w-3/4">
-                <div class="my-8">
+                <div class="my-8 ms-2">
                     <div class="space-x-2">
                         <i class="fa-solid fa-gauge text-black text-3xl"></i>
                         <span class="text-black text-3xl font-bold">แดชบอร์ด</span>
                     </div>
                 </div>
-                <div class="flex flex-col items-center justify-center bg-gray-50 w-full rounded-xl p-8 py-5">
+                <div class="flex flex-col items-center justify-center bg-gray-50/50 w-full rounded-lg p-8 py-5 border border-gray-200">
                     <div class="flex justify-between w-9/10 gap-8 my-7">
                         <div class="w-1/4 p-5 bg-green-100 text-center rounded-xl">
                             <p class="mt-1">ยอดขายวันนี้</p>
@@ -48,7 +48,7 @@
 
                     <div class="w-19/20 my-7">
                         <h1 class="text-2xl my-4 px-1">คำสั่งซื้อล่าสุด</h1>
-                        <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                        <table class="w-full bg-white rounded-lg shadow-sm">
                             <thead class="bg-gray-100 text-black rounded-t-lg">
                                 <tr>
                                     <th class="py-3 px-6 text-left rounded-tl-lg">เลขคำสั่งซื้อ</th>
@@ -95,7 +95,7 @@
                     <div class="flex w-19/20 my-6 gap-8">
                         <div class="w-4/7">
                             <h1 class="text-2xl my-4 px-1">สินค้าขายดี</h1>
-                            <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <table class="w-full bg-white rounded-lg shadow-sm">
                                 <thead class="bg-gray-100 text-black rounded-t-lg">
                                     <tr>
                                         <th class="py-3 px-6 text-left rounded-tl-lg">อันดับ</th>
@@ -137,7 +137,7 @@
                         </div>
                         <div class="w-3/7">
                             <h1 class="text-2xl my-4 px-1">สินค้าคงคลังต่ำ</h1>
-                            <table class="w-full bg-white border border-gray-200 rounded-lg shadow-sm">
+                            <table class="w-full bg-white rounded-lg shadow-sm">
                                 <thead class="bg-gray-100 text-black rounded-t-lg">
                                     <tr>
                                         <th class="py-3 px-6 text-left">เลขสินค้า</th>

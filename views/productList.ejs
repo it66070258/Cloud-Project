@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - GIGAGADGET</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        body {
+            font-family: "Prompt", sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('ownerNav')%>
+        <div class="flex justify-center py-2">
+            <div class="flex flex-col w-3/4">
+                <div class="flex justify-between mt-8 mb-6">
+                    <div class="space-x-2">
+                        <i class="fa-solid fa-box-open text-black text-3xl"></i>
+                        <span class="text-black text-3xl font-bold">รายการสินค้า</span>
+                    </div>
+                    <div>
+                        <a href="/owner/product/create">
+                            <button
+                                class="bg-green-200 text-green-800 py-3 px-4 rounded-lg cursor-pointer hover:bg-green-300 text-md font-medium">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>เพิ่มสินค้า</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-2 gap-8">
+                    <div class="w-2/3 flex gap-2">
+                        <input type="text" placeholder="ค้นหาชื่อสินค้า" class="w-1/5 px-4 py-1 border border-gray-100 rounded-md focus:outline-none  text-sm"/>
+                        <select id="category" name="category" class="rounded-md text-gray-700 py-1 px-4 border border-gray-100 rounded-md  text-sm">
+                            <option value="" selected>ประเภทสินค้าทั้งหมด</option>
+                            <option value="1">11111</option>
+                            <option value="2">2222</option>
+                        </select>
+                        <select id="brand" name="brand" class="rounded-md text-gray-700 py-1 px-4 border border-gray-100 rounded-md  text-sm">
+                            <option value="" selected>แบรนด์สินค้าทั้งหมด</option>
+                            <option value="1">11111</option>
+                            <option value="2">2222</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="orderby" class="text-gray-700 font-medium">เรียงตาม:</label>
+                        <select id="orderby" name="orderby" class="rounded-md border border-gray-100 text-gray-700 py-1 px-4 text-sm" >
+                            <option value="id_asc">เลขสินค้า</option>
+                            <option value="category_asc">ประเภทสินค้า</option>
+                            <option value="brand_asc">แบรนด์สินค้า</option>
+                            <option value="name_asc">ชื่อสินค้า</option>
+                            <option value="remain_asc">คงเหลือ</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center w-full rounded-xl ">
+                    <table class="w-full bg-white border border-gray-200 rounded-lg">
+                        <thead class="bg-gray-100 text-black rounded-t-lg">
+                            <tr>
+                                <th class="py-3 px-6 text-left">เลขสินค้า</th>
+                                <th class="py-3 px-6 text-left">ชื่อสินค้า</th>
+                                <th class="py-3 px-6 text-left">แบรนด์</th>
+                                <th class="py-3 px-6 text-left">ประเภท</th>
+                                <th class="py-3 px-6 text-left">ราคา</th>
+                                <th class="py-3 px-6 text-left">คงเหลือ</th>
+                                <th class="py-3 px-6 text-left">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t border-gray-200">
+                                <td class="py-3 px-6 rounded-bl-lg">#111</td>
+                                <td class="py-3 px-6">Product Name</td>
+                                <td class="py-3 px-6">Product Brand</td>
+                                <td class="py-3 px-6">Product Category</td>
+                                <td class="py-3 px-6">99.-</td>
+                                <td class="py-2 px-4">
+                                    <span class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm">0</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="/owner/product/edit/1">
+                                        <button
+                                            class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm cursor-pointer hover:bg-yellow-300">
+                                            <i class="fa-solid fa-pen"></i>
+                                            <span>แก้ไข</span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-gray-200">
+                                <td class="py-3 px-6 rounded-bl-lg">#151</td>
+                                <td class="py-3 px-6">Product Name</td>
+                                <td class="py-3 px-6">Product Brand</td>
+                                <td class="py-3 px-6">Product Category</td>
+                                <td class="py-3 px-6">99.-</td>
+                                <td class="py-2 px-4">
+                                    <span class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm">0</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="">
+                                        <button
+                                            class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm cursor-pointer hover:bg-yellow-300">
+                                            <i class="fa-solid fa-pen"></i>
+                                            <span>แก้ไข</span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr class="border-t border-gray-200">
+                                <td class="py-3 px-6 rounded-bl-lg">#123</td>
+                                <td class="py-3 px-6">Product Name</td>
+                                <td class="py-3 px-6">Product Brand</td>
+                                <td class="py-3 px-6">Product Category</td>
+                                <td class="py-3 px-6">99.-</td>
+                                <td class="py-2 px-4">
+                                    <span class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm">0</span>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <a href="">
+                                        <button
+                                            class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm cursor-pointer hover:bg-yellow-300">
+                                            <i class="fa-solid fa-pen"></i>
+                                            <span>แก้ไข</span>
+                                        </button>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
