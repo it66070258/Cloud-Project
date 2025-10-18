@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'shop',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -92,6 +93,24 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Undo', 'Redo'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat'],
+            ['FontSize', 'TextColor', 'BGColor'],
+            ['NumberedList', 'BulletedList', 'Outdent', 'Indent'],
+            ['Blockquote', 'SpecialChar'],
+            ['Link', 'Unlink'],
+            ['Image', 'Table', 'HorizontalRule'],
+            ['Source', 'Maximize'],
+        ],
+        'height': 380,
+        'width': '100%',
+    }
+}
 
 
 # Internationalization
