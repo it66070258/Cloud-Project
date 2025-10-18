@@ -1,2 +1,4 @@
-node_modules/
 .env
+myvenv/
+media/
+__pycache__/
