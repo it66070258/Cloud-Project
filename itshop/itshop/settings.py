@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'shop',
-    'ckeditor'
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +70,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "itshop",
         "USER": "postgres",
-        "PASSWORD": "password",
+        "PASSWORD": "1234",
         "HOST": "localhost",
         "PORT": "5432",
     }

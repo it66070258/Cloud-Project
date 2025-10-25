@@ -1,25 +1,24 @@
 {% extends 'admin_templates/base.html' %}
 {% load static %}
 
-{% block title %} เพิ่มสินค้าใหม่ - IT Shop {% endblock %}
+{% block title %} เพิ่มสินค้าใหม่ {% endblock %}
 
 {% block product_button %}
-<button
-    class="w-full p-3 ps-4 rounded-md text-left text-white bg-gradient-to-bl from-purple-400 to-purple-900 hover:to-purple-500 hover:cursor-pointer">
+<button class="menu-button-active w-full p-3 ps-4 rounded-lg text-left text-white hover:cursor-pointer">
     <i class="fa-solid fa-box-open me-2"></i>
-    <span class="font-regular">สินค้า</span>
+    <span class="font-medium">สินค้า</span>
 </button>
 {% endblock %}
 
 {% block head %}
-<div class="flex items-center gap-1">
+<div class="flex items-center gap-3">
     <a href="{% url 'product' %}">
         <button type="button"
-            class="border border-gray-300 hover:bg-gray-100 text-gray-400 bg-white rounded-md hover:cursor-pointer px-1">
-            <i class="fa-solid fa-angle-left text-sm"></i>
+            class="border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 text-blue-600 bg-white rounded-lg hover:cursor-pointer px-3 py-2 transition-all duration-300 shadow-sm">
+            <i class="fa-solid fa-angle-left text-lg"></i>
         </button>
     </a>
-    <h1 class="text-2xl ms-1 text-gray-600">เพิ่มสินค้า</h1>
+    <h1 class="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">เพิ่มสินค้า</h1>
 </div>
 {% endblock %}
 
@@ -31,10 +30,10 @@
 
         <div class="flex gap-5">
             <div class="w-4/7 flex flex-col gap-5">
-                <div class="border border-gray-200 p-5 rounded-md">
+                <div class="border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     <div class="pt-3 pb-1">
                         <label for="{{form.name.id_for_label  }}"
-                            class="block font-medium text-gray-700 mb-1">ชื่อสินค้า</label>
+                            class="block font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-tag text-blue-500"></i>ชื่อสินค้า</label>
                         {{form.name}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -48,7 +47,7 @@
                     </div>
                     <div class="pb-1">
                         <label for="{{form.description.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">คำอธิบาย</label>
+                            class="block font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-align-left text-blue-500"></i>คำอธิบาย</label>
                         {{form.description}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -63,7 +62,7 @@
                     <div class="pb-1 w-full">
                         {{form.media}}
                         <label for="{{form.detail.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">รายละเอียด</label>
+                            class="block font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-list text-blue-500"></i>รายละเอียด</label>
                             <div class="w-full">
                                 {{ form.detail }}
                             </div>
@@ -81,20 +80,20 @@
             </div>
 
             <div class="w-3/7 flex flex-col gap-5">
-                <div class="pt-3 flex flex-col items-center gap-5 border border-gray-200 p-5 rounded-md">
+                <div class="pt-3 flex flex-col items-center gap-5 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     <img id="preview" src="{% static 'img/no_img.jpeg' %}" alt=""
-                        class="object-cover w-128 h-96 rounded-md border border-gray-300">
+                        class="object-cover w-128 h-96 rounded-xl border-2 border-blue-200">
                     <label for="{{ form.image.id_for_label }}"
-                        class="inline-block border border-gray-500 rounded-md p-2 text-center text-gray-600 hover:border-gray-800 hover:text-gray-800 hover:cursor-pointer w-1/4">
-                        เลือกรูปภาพ
+                        class="inline-block border-2 border-blue-500 rounded-lg px-4 py-2 text-center text-blue-600 hover:bg-blue-500 hover:text-white hover:cursor-pointer font-medium transition-all duration-300 shadow-sm hover:shadow-md">
+                        <i class="fa-solid fa-image me-1"></i> เลือกรูปภาพ
                     </label>
                 </div>
                 {{form.image}}
 
-                <div class="flex pb-1 gap-5 border border-gray-200 p-5 rounded-md">
+                <div class="flex pb-1 gap-5 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     <div class="w-1/2">
                         <label for="{{form.brand.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">แบรนด์</label>
+                            class="block font-semibold text-gray-800 mb-2">แบรนด์</label>
                         {{form.brand}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -108,7 +107,7 @@
                     </div>
                     <div class="w-1/2">
                         <label for="{{form.category.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">หมวดหมู่</label>
+                            class="block font-semibold text-gray-800 mb-2">หมวดหมู่</label>
                         {{form.category}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -122,10 +121,10 @@
                     </div>
                 </div>
 
-                <div class="flex pb-1 gap-5 border border-gray-200 p-5 rounded-md">
+                <div class="flex pb-1 gap-5 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     <div class="w-2/4">
                         <label for="{{form.price.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">ราคา</label>
+                            class="block font-semibold text-gray-800 mb-2">ราคา</label>
                         {{form.price}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -139,7 +138,7 @@
                     </div>
                     <div class="w-1/4">
                         <label for="{{form.discount_value.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">จำนวนส่วนลด</label>
+                            class="block font-semibold text-gray-800 mb-2">จำนวนส่วนลด</label>
                         {{form.discount_value}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -153,7 +152,7 @@
                     </div>
                     <div class="w-1/4">
                         <label for="{{form.discount_type.id_for_label}}"
-                            class="block font-medium text-gray-700 mb-1">ประเภทส่วนลด</label>
+                            class="block font-semibold text-gray-800 mb-2">ประเภทส่วนลด</label>
                         {{form.discount_type}}
                         <div class="text-red-400 p-2">
                             <ul>
@@ -167,9 +166,9 @@
                     </div>
                 </div>
 
-                <div class="pb-1 border border-gray-200 p-5 rounded-md">
+                <div class="pb-1 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     <label for="{{form.stock.id_for_label}}"
-                        class="block font-medium text-gray-700 mb-1">จำนวนสินค้า</label>
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2"><i class="fa-solid fa-boxes-stacked text-blue-500"></i>จำนวนสินค้า</label>
                     {{form.stock}}
                     <div class="text-red-400 p-2">
                         <ul>
@@ -188,13 +187,13 @@
         <div class="py-3 text-right mt-4">
             <a href="{% url 'product' %}">
                 <button type="button"
-                    class="border border-gray-300 hover:bg-gray-100 text-gray-400 px-6 py-2 rounded-md hover:cursor-pointer">
+                    class="border-2 border-gray-300 hover:bg-gray-100 text-gray-600 px-6 py-2.5 rounded-lg hover:cursor-pointer font-medium transition-all duration-300">
                     ยกเลิก
                 </button>
             </a>
             <button type="submit"
-                class="bg-purple-700 hover:bg-purple-600 text-white px-12 py-2 rounded-md hover:cursor-pointer">
-                เพิ่ม
+                class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-12 py-2.5 rounded-lg hover:cursor-pointer font-medium shadow-md hover:shadow-lg transition-all duration-300">
+                <i class="fa-solid fa-plus me-1"></i> เพิ่ม
             </button>
         </div>
     </form>

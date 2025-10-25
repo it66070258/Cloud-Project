@@ -1,74 +1,96 @@
 {% extends 'admin_templates/base.html' %}
 {% load humanize %}
 
-{% block title %}หน้าหลัก - IT Shop{% endblock %}
+{% block title %}หน้าหลัก{% endblock %}
 
 {% block home_button %}
-<button
-    class="w-full p-3 ps-4 rounded-md text-left text-white bg-gradient-to-bl from-purple-400 to-purple-900 hover:to-purple-500 hover:cursor-pointer">
+<button class="menu-button-active w-full p-3 ps-4 rounded-lg text-left text-white hover:cursor-pointer">
     <i class="fa-solid fa-house me-2"></i>
-    <span class="font-regular">หน้าหลัก</span>
+    <span class="font-medium">หน้าหลัก</span>
 </button>
 {% endblock %}
 
 {% block head %}
 <div class="flex justify-between items-center">
-    <h1 class="text-2xl ms-1 text-gray-600">หน้าหลัก</h1>
+    <h1 class="text-3xl ms-1 font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">หน้าหลัก</h1>
 </div>
 {% endblock %}
 
 {% block content %}
 <div class="flex justify-center py-2">
     <div class="flex flex-col items-center justify-center w-full p-8 py-5">
-        <div class="flex justify-between w-9/10 gap-8 my-7">
-            <div class="w-1/4 p-5 bg-green-100 text-center rounded-xl">
-                <p class="mt-1">ยอดขายวันนี้</p>
-                <h1 class="text-5xl my-5 pt-1 font-bold text-green-500">
+        <div class="flex justify-between w-9/10 gap-6 my-7">
+            <div class="w-1/4 p-6 bg-gradient-to-br from-green-50 to-emerald-100 text-center rounded-2xl border border-green-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="flex justify-center mb-2">
+                    <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-coins text-white text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 font-medium">ยอดขายวันนี้</p>
+                <h1 class="text-4xl my-4 font-bold bg-gradient-to-br from-green-600 to-emerald-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     {{ sales_today|floatformat:0|intcomma }}฿
                 </h1>
             </div>
-            <div class="w-1/5 p-5 bg-blue-100 text-center rounded-xl">
-                <p class="mt-1">คำสั่งซื้อที่รอดำเนินการ</p>
-                <h1 class="text-6xl my-5 font-bold text-blue-500">
+            <div class="w-1/5 p-6 bg-gradient-to-br from-blue-50 to-sky-100 text-center rounded-2xl border border-blue-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="flex justify-center mb-2">
+                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-shopping-cart text-white text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 font-medium">คำสั่งซื้อที่รอดำเนินการ</p>
+                <h1 class="text-5xl my-4 font-bold bg-gradient-to-br from-blue-600 to-sky-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     {{ pending_orders_count }}
                 </h1>
             </div>
-            <div class="w-1/5 p-5 bg-purple-100 text-center rounded-xl">
-                <p class="mt-1">ลูกค้าใหม่วันนี้</p>
-                <h1 class="text-6xl my-5 font-bold text-purple-500">
+            <div class="w-1/5 p-6 bg-gradient-to-br from-purple-50 to-violet-100 text-center rounded-2xl border border-purple-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="flex justify-center mb-2">
+                    <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-user-plus text-white text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 font-medium">ลูกค้าใหม่วันนี้</p>
+                <h1 class="text-5xl my-4 font-bold bg-gradient-to-br from-purple-600 to-violet-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     {{ new_customers_today }}
                 </h1>
             </div>
-            <div class="w-1/5 p-5 bg-yellow-100 text-center rounded-xl">
-                <p class="mt-1">สินค้าคงคลังต่ำ</p>
-                <h1 class="text-6xl my-5 font-bold text-yellow-500">
+            <div class="w-1/5 p-6 bg-gradient-to-br from-amber-50 to-yellow-100 text-center rounded-2xl border border-amber-200 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="flex justify-center mb-2">
+                    <div class="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-triangle-exclamation text-white text-xl"></i>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 font-medium">สินค้าคงคลังต่ำ</p>
+                <h1 class="text-5xl my-4 font-bold bg-gradient-to-br from-amber-600 to-yellow-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     {{ low_stock_products }}
                 </h1>
             </div>
         </div>
 
         <div class="w-19/20 my-7">
-            <h1 class="text-2xl my-4 px-1">คำสั่งซื้อล่าสุด</h1>
-            <div class="p-2 border border-gray-200 rounded-md">
+            <div class="flex items-center gap-3 my-4 px-1">
+                <div class="w-1 h-8 bg-gradient-to-b from-blue-500 to-cyan-400 rounded-full"></div>
+                <h1 class="text-2xl font-semibold text-gray-800">คำสั่งซื้อล่าสุด</h1>
+            </div>
+            <div class="p-4 border border-blue-200 rounded-xl shadow-sm bg-white">
                 <table class="w-full bg-white">
-                    <thead class="text-black">
-                        <tr>
-                            <th class="py-3 px-6 text-left">เลขคำสั่งซื้อ</th>
-                            <th class="py-3 px-6 text-left">ชื่อลูกค้า</th>
-                            <th class="py-3 px-6 text-left">ยอดสุทธิ</th>
-                            <th class="py-3 px-6 text-left">วันที่ทำการสั่งซื้อ</th>
-                            <th class="py-3 px-6 text-left">สถานะการชำระเงิน</th>
-                            <th class="py-3 px-6 text-left">สถานะคำสั่งซื้อ</th>
+                    <thead>
+                        <tr class="border-b-2 border-blue-200 text-sm text-left bg-gradient-to-r from-blue-50 to-cyan-50">
+                            <th class="p-4 font-semibold text-gray-700">เลขคำสั่งซื้อ</th>
+                            <th class="p-4 font-semibold text-gray-700">ชื่อลูกค้า</th>
+                            <th class="p-4 font-semibold text-gray-700">ยอดสุทธิ</th>
+                            <th class="p-4 font-semibold text-gray-700">วันที่ทำการสั่งซื้อ</th>
+                            <th class="p-4 font-semibold text-gray-700">สถานะการชำระเงิน</th>
+                            <th class="p-4 font-semibold text-gray-700">สถานะคำสั่งซื้อ</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for order in latest_orders %}
-                        <tr class="border-t border-gray-200">
-                            <td class="py-3 px-6">#{{ order.id }}</td>
-                            <td class="py-3 px-6">{{ order.customer.user.get_full_name }}</td>
-                            <td class="py-3 px-6">฿{{ order.final_price|floatformat:-2|intcomma }}</td>
-                            <td class="py-3 px-6">{{ order.order_date|date:"d/m/Y H:i" }}</td>
-                            <td class="py-2 px-4">
+                        <tr class="border-b border-gray-200 text-sm hover:bg-blue-50 transition-colors duration-200">
+                            <td class="p-4 font-semibold text-blue-600">#{{ order.id }}</td>
+                            <td class="p-4 text-gray-800">{{ order.customer.user.get_full_name }}</td>
+                            <td class="p-4 font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">฿{{ order.final_price|floatformat:-2|intcomma }}</td>
+                            <td class="p-4 text-gray-600">{{ order.order_date|date:"d/m/Y H:i" }}</td>
+                            <td class="p-4">
                                 {% if not order.payment %}
                                 <div
                                     class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs">
@@ -91,7 +113,7 @@
                                 </div>
                                 {% endif %}
                             </td>
-                            <td class="py-2 px-4 rounded-br-lg">
+                            <td class="p-4">
                                 {% if order.status == "PENDING" %}
                                 <div
                                     class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-yellow-200 text-yellow-700 text-xs">
@@ -122,33 +144,31 @@
         </div>
 
         <div class="w-19/20 my-6">
-            <h1 class="text-2xl my-4 px-1">สินค้าคงคลังต่ำ</h1>
-            <div class="p-2 border border-gray-200 rounded-md">
+            <div class="flex items-center gap-3 my-4 px-1">
+                <div class="w-1 h-8 bg-gradient-to-b from-amber-500 to-yellow-400 rounded-full"></div>
+                <h1 class="text-2xl font-semibold text-gray-800">สินค้าคงคลังต่ำ</h1>
+            </div>
+            <div class="p-4 border border-blue-200 rounded-xl shadow-sm bg-white">
                 <table class="w-full bg-white">
-                    <thead class="text-black">
-                        <tr>
-                            <th class="py-3 px-6 text-left">เลขสินค้า</th>
-                            <th class="py-3 px-6 text-left">ชื่อสินค้า</th>
-                            <th class="py-3 px-6 text-left">คงเหลือ</th>
+                    <thead>
+                        <tr class="border-b-2 border-blue-200 text-sm text-left bg-gradient-to-r from-blue-50 to-cyan-50">
+                            <th class="p-4 font-semibold text-gray-700">เลขสินค้า</th>
+                            <th class="p-4 font-semibold text-gray-700">ชื่อสินค้า</th>
+                            <th class="p-4 font-semibold text-gray-700">คงเหลือ</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for product in low_stock_list %}
-                        <tr class="border-t border-gray-200">
-                            <td class="py-3 px-6">#{{ product.id }}</td>
-                            <td class="py-3 px-6">{{ product.name }}</td>
-                            <td class="py-2 px-4">
+                        <tr class="border-b border-gray-200 text-sm hover:bg-blue-50 transition-colors duration-200">
+                            <td class="p-4 font-semibold text-blue-600">#{{ product.id }}</td>
+                            <td class="p-4 text-gray-800">{{ product.name }}</td>
+                            <td class="p-4">
                                 {% if product.stock == 0 %}
-                                <span class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm">0</span>
+                                <span class="bg-red-200 text-red-800 py-1 px-4 rounded-full text-sm font-medium">0</span>
                                 {% elif product.stock <= 3 %} 
-                                <span
-                                    class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm">
-                                    {{ product.stock }}
-                                </span>
+                                <span class="bg-yellow-200 text-yellow-800 py-1 px-4 rounded-full text-sm font-medium">{{ product.stock }}</span>
                                 {% else %}
-                                <span class="bg-gray-200 text-gray-800 py-1 px-4 rounded-full text-sm">
-                                    {{ product.stock }}
-                                </span>
+                                <span class="bg-gray-200 text-gray-800 py-1 px-4 rounded-full text-sm font-medium">{{ product.stock }}</span>
                                 {% endif %}
                             </td>
                         </tr>

@@ -16,100 +16,135 @@
         body {
             font-family: "Prompt", sans-serif;
         }
+
+        .logo-text {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+        }
     </style>
     <title>
-        สมัครสมาชิก - IT Shop
+        สมัครสมาชิก
     </title>
 </head>
 
 <body>
-    <div class="flex justify-center items-center bg-gray-50 h-screen w-full">
-        <div class="w-1/3 px-16 py-12 rounded-md bg-white border border-gray-200">
-            <p class="text-center font-medium text-3xl mb-8">สมัครสมาชิก</p>
+    <div class="flex justify-center items-center bg-gradient-to-br from-rose-50/50 via-pink-50/30 to-purple-50/20 min-h-screen w-full py-8">
+        <div class="w-1/3 px-16 py-12 rounded-2xl bg-white/95 backdrop-blur-sm border-2 border-blue-200 shadow-2xl">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold logo-text mb-2">GigaGadget</h1>
+                <p class="text-xl font-semibold text-gray-700">สมัครสมาชิก</p>
+            </div>
             {{ form.non_field_errors }}
             <form method="POST">
                 {% csrf_token %}
-                <label for="{{form.username.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-user me-1"></i>ชื่อผู้ใช้</label>
-                {{form.username}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.username.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.username.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-user text-blue-500"></i>ชื่อผู้ใช้
+                    </label>
+                    {{form.username}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.username.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-                <label for="{{form.email.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-envelope me-1"></i>อีเมล</label>
-                {{form.email}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.email.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.email.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-blue-500"></i>อีเมล
+                    </label>
+                    {{form.email}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.email.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-                <label for="{{form.first_name.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-id-card me-1"></i>ชื่อจริง</label>
-                {{form.first_name}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.first_name.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.first_name.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-blue-500"></i>ชื่อจริง
+                    </label>
+                    {{form.first_name}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.first_name.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-                <label for="{{form.last_name.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-id-card me-1"></i>นามสกุล</label>
-                {{form.last_name}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.last_name.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.last_name.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-blue-500"></i>นามสกุล
+                    </label>
+                    {{form.last_name}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.last_name.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
 
-                <label for="{{form.password1.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-lock me-1"></i>รหัสผ่าน</label>
-                {{form.password1}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.password1.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.password1.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-blue-500"></i>รหัสผ่าน
+                    </label>
+                    {{form.password1}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.password1.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-                <label for="{{form.password2.id_for_label}}"
-                    class="block font-medium text-gray-700 mb-1"><i class="fa-solid fa-lock me-1"></i>ยืนยันรหัสผ่าน</label>
-                {{form.password2}}
-                <div class="text-red-400 p-2">
-                    <ul>
-                        {% for error in form.password2.errors %}
-                        <li>
-                            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
-                        </li>
-                        {% endfor %}
-                    </ul>
+                <div class="mb-4">
+                    <label for="{{form.password2.id_for_label}}"
+                        class="block font-semibold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-lock text-blue-500"></i>ยืนยันรหัสผ่าน
+                    </label>
+                    {{form.password2}}
+                    <div class="text-red-400 p-2">
+                        <ul>
+                            {% for error in form.password2.errors %}
+                            <li>
+                                <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
                 <button type="submit"
-                    class="bg-purple-700 hover:bg-purple-600 text-white text-lg font-semibold px-12 py-2 rounded-md hover:cursor-pointer w-full mt-4">
-                    สมัครสมาชิก
+                    class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white text-lg font-semibold px-12 py-3 rounded-lg hover:cursor-pointer w-full mt-6 shadow-md hover:shadow-lg transition-all duration-300">
+                    <i class="fa-solid fa-user-plus me-2"></i>สมัครสมาชิก
                 </button>
             </form>
-            <p class="text-center mt-3 text-gray-600">
+            <p class="text-center mt-6 text-gray-600">
                 มีบัญชีอยู่แล้ว?
-                <a href="{% url 'login' %}"class="text-blue-600 hover:text-blue-800 font-medium">
+                <a href="{% url 'login' %}" class="text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-300">
                     เข้าสู่ระบบ
                 </a>
             </p>
