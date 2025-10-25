@@ -6,33 +6,43 @@
 
 {% block content %}
 <div class="flex justify-center max-w-7xl mx-auto py-10 gap-4">
-    <div class=" w-1/2 bg-white rounded-md border border-gray-200 p-12">
-        <h1 class="text-2xl font-semibold mb-4">ชำระเงินสำหรับคำสั่งซื้อ #{{ order.id }}</h1>
+    <div class="w-1/2 bg-white/95 backdrop-blur-sm rounded-xl border-2 border-blue-200 shadow-lg p-12">
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-money-bill text-blue-500"></i>
+            <span>ชำระเงินสำหรับคำสั่งซื้อ #{{ order.id }}</span>
+        </h1>
 
-        <div class="p-6 rounded-md border border-gray-200 mb-4 text-center">
-            <p class="text-xl">ยอดที่ต้องชำระ: {{ order.final_price|floatformat:2|intcomma }} ฿</p>
+        <div class="p-6 rounded-xl border-2 border-blue-200 shadow-sm mb-4 text-center bg-gradient-to-br from-blue-50/30 to-cyan-50/30">
+            <p class="text-sm text-gray-600 mb-1">ยอดที่ต้องชำระ</p>
+            <p class="text-3xl font-bold text-blue-600">฿{{ order.final_price|floatformat:2|intcomma }}</p>
         </div>
 
-        <div class="text-center mb-6 p-6 rounded-md border border-gray-200">
-            <p class="mb-2 text-gray-600">สแกนเพื่อชำระเงิน</p>
+        <div class="text-center mb-6 p-6 rounded-xl border-2 border-blue-200 shadow-sm bg-white">
+            <p class="mb-2 text-gray-600 font-medium">สแกนเพื่อชำระเงิน</p>
             <img src="{% static 'img/qr-code.jpg' %}" alt="QR Code"
-                class="mx-auto w-72 h-96 rounded-md border border-gray-200">
+                class="mx-auto w-72 h-96 rounded-xl border-2 border-blue-200 shadow-md">
         </div>
     </div>
-    <div class="w-1/2 bg-white rounded-md border border-gray-200 p-12">
-        <h1 class="text-2xl font-semibold mb-4">ส่งหลักฐานการชำระเงิน</h1>
+    <div class="w-1/2 bg-white/95 backdrop-blur-sm rounded-xl border-2 border-blue-200 shadow-lg p-12">
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-file-invoice text-blue-500"></i>
+            <span>ส่งหลักฐานการชำระเงิน</span>
+        </h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="mb-6 p-6 rounded-md border border-gray-200">
+            <div class="mb-6 p-6 rounded-xl border-2 border-blue-200 shadow-sm">
                 <div>
-                    <p class="mb-1 text-gray-700">รูปภาพหลักฐานชำระเงิน</p>
-                    <img id="preview" class="hidden object-cover w-64 rounded-md border border-gray-300 mb-2">
+                    <p class="mb-2 text-gray-800 font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-image text-blue-500"></i>
+                        รูปภาพหลักฐานชำระเงิน
+                    </p>
+                    <img id="preview" class="hidden object-cover w-64 rounded-xl border-2 border-blue-200 shadow-md mb-2">
                     <label for="{{ form.slip_image.id_for_label }}"
-                        class="inline-block border border-gray-200 rounded-md p-2 text-center text-gray-600 hover:border-gray-400 hover:text-gray-800 hover:cursor-pointer">
-                        อัพโหลดรูปภาพ
+                        class="inline-block border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-2 text-center text-blue-500 hover:text-blue-600 hover:cursor-pointer font-medium transition-all duration-300">
+                        <i class="fa-solid fa-upload mr-2"></i>อัพโหลดรูปภาพ
                     </label>
                     {{form.slip_image}}
-                    <ul>
+                    <ul class="text-red-500 mt-2">
                         {% for error in form.slip_image.errors %}
                         <li><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</li>
                         {% endfor %}
@@ -40,11 +50,14 @@
                 </div>
             </div>
 
-            <div class="mb-6 p-6 rounded-md border border-gray-200">
+            <div class="mb-6 p-6 rounded-xl border-2 border-blue-200 shadow-sm">
                 <div>
-                    <label class="block mb-1 text-gray-700"">ยอดเงินที่ชำระ</label>
+                    <label class="block mb-2 text-gray-800 font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-coins text-blue-500"></i>
+                        ยอดเงินที่ชำระ
+                    </label>
                     {{ form.amount }}
-                    <ul>
+                    <ul class="text-red-500 mt-2">
                         {% for error in form.amount.errors %}
                         <li><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</li>
                         {% endfor %}
@@ -52,9 +65,12 @@
                 </div>
 
                 <div>
-                    <label class="block mt-3 mb-1 text-gray-700"">วันและเวลาที่โอนเงินตามหลักฐานชำระเงิน</label>
+                    <label class="block mt-4 mb-2 text-gray-800 font-semibold flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days text-blue-500"></i>
+                        วันและเวลาที่โอนเงินตามหลักฐานชำระเงิน
+                    </label>
                     {{ form.payment_date }}
-                    <ul>
+                    <ul class="text-red-500 mt-2">
                         {% for error in form.payment_date.errors %}
                         <li><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</li>
                         {% endfor %}
@@ -65,13 +81,13 @@
             <div class="mt-4 py-3 text-right">
                 <a href="{% url 'order_list' %}">
                     <button type="button"
-                        class="border border-gray-300 hover:bg-gray-100 text-gray-400 px-6 py-2 rounded-md hover:cursor-pointer">
+                        class="border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-600 px-6 py-2 rounded-lg hover:cursor-pointer font-medium transition-all duration-300 mr-2">
                         ออก
                     </button>
                 </a>
                 <button type="submit"
-                    class="bg-purple-700 hover:bg-purple-600 text-white px-12 py-2 rounded-md hover:cursor-pointer">
-                    ยืนยันการชำระเงิน
+                    class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-12 py-3 rounded-lg hover:cursor-pointer font-medium shadow-md hover:shadow-lg transition-all duration-300">
+                    <i class="fa-solid fa-check mr-2"></i>ยืนยันการชำระเงิน
                 </button>
             </div>
         </form>

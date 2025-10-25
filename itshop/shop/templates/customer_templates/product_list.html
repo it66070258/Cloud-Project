@@ -6,48 +6,48 @@
 
 {% block searchbar %}
 <div class="flex items-center">
-    <input type="text" id="search-input" name="search" placeholder="ค้นหาสินค้า..." {% if request.GET.search %} value="{{request.GET.search}}" {% endif %}>
+    <input type="text" id="search-input" name="search" placeholder="ค้นหาสินค้า..." {% if request.GET.search %} value="{{request.GET.search}}" {% endif %} class="border-2 border-blue-200 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-400 transition-colors duration-200 w-full">
     <button type="button" id="search-btn"
-        class="ml-2 bg-purple-500 text-white rounded-md px-3 py-2 hover:bg-purple-600 hover:cursor-pointer">
+        class="ml-2 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg px-4 py-2 shadow-md hover:shadow-lg transition-all duration-300">
         <i class="fa-solid fa-magnifying-glass"></i>
     </button>
 </div>
 {% endblock %}
 
 {% block content %}
-<div class="flex bg-gray-50 px-36">
+<div class="flex px-36">
     <div
-        class="w-64 h-[calc(100vh-8rem)] fixed top-24 left-36 bg-white rounded-md p-8 overflow-y-auto border border-gray-200">
+        class="w-64 h-[calc(100vh-8rem)] fixed top-24 left-36 bg-white/95 backdrop-blur-sm rounded-xl p-8 overflow-y-auto border-2 border-blue-200 shadow-lg">
 
-        <h2 class="text-lg font-semibold mb-4">หมวดหมู่สินค้า</h2>
+        <h2 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-4">หมวดหมู่สินค้า</h2>
         <ul class="space-y-2 mb-6 ms-2">
             <li>
                 <button value="all"
-                    class="category-btn block text-left hover:text-purple-600 hover:cursor-pointer {% if request.GET.category == 'all' or not request.GET.category%} text-purple-600 font-semibold {% endif %}">
+                    class="category-btn block text-left hover:text-blue-500 transition-colors duration-200 hover:cursor-pointer {% if request.GET.category == 'all' or not request.GET.category%} text-blue-600 font-semibold {% endif %}">
                     ทั้งหมด
                 </button>
             </li>
             {% for category in categories %}
             <li>
                 <button value="{{category.name}}"
-                    class="category-btn block text-left hover:text-purple-600 hover:cursor-pointer {% if request.GET.category == category.name%} text-purple-600 font-semibold {% endif %}">
+                    class="category-btn block text-left hover:text-blue-500 transition-colors duration-200 hover:cursor-pointer {% if request.GET.category == category.name%} text-blue-600 font-semibold {% endif %}">
                     {{category.name}}
                 </button>
             </li>
             {% endfor %}
         </ul>
 
-        <h2 class="text-lg font-semibold mb-4">แบรนด์</h2>
+        <h2 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent mb-4">แบรนด์</h2>
         <ul class="space-y-2 ms-2">
             <li>
-                <button value="all" class="brand-btn block text-left hover:text-purple-600 hover:cursor-pointer {% if request.GET.brand == 'all' or not request.GET.brand%} text-purple-600 font-semibold {% endif %}">
+                <button value="all" class="brand-btn block text-left hover:text-blue-500 transition-colors duration-200 hover:cursor-pointer {% if request.GET.brand == 'all' or not request.GET.brand%} text-blue-600 font-semibold {% endif %}">
                     ทั้งหมด
                 </button>
             </li>
             {% for brand in brands %}
             <li>
                 <button value="{{brand.name}}"
-                    class="brand-btn block text-left hover:text-purple-600 hover:cursor-pointer {% if request.GET.brand == brand.name%} text-purple-600 font-semibold {% endif %}">
+                    class="brand-btn block text-left hover:text-blue-500 transition-colors duration-200 hover:cursor-pointer {% if request.GET.brand == brand.name%} text-blue-600 font-semibold {% endif %}">
                     {{brand.name}}
                 </button>
             </li>
@@ -78,7 +78,7 @@
             {% for product in products %}
             <a href="{% url 'product_detail' product.id %}">
                 <div
-                    class="flex flex-col h-full bg-white rounded-md border border-gray-200 hover:shadow-sm transform hover:-translate-y-1 transition-all p-4 duration-200">
+                    class="flex flex-col h-full bg-white/95 backdrop-blur-sm rounded-xl border-2 border-blue-200 hover:shadow-lg transition-all p-4 duration-300">
                     <div class="relative">
                         {% if product.image %}
                         <img src="{{ product.image.url }}" alt="{{ product.name }}"
@@ -101,7 +101,7 @@
 
                     {% if product.discount_type != "NONE" and product.discount_value > 0 %}
                     <div class="mt-1">
-                        <p class="text-purple-600 font-semibold text-lg">
+                        <p class="text-blue-600 font-semibold text-lg">
                             ฿{{ product.sale_price|floatformat:-2|intcomma }}
                             <span class="text-sm text-gray-400 line-through">
                                 ฿{{ product.price|floatformat:-2|intcomma }}
@@ -109,7 +109,7 @@
                         </p>
                     </div>
                     {% else %}
-                    <p class="text-purple-600 font-semibold text-lg mt-1">฿{{ product.sale_price|floatformat:-2|intcomma }}</p>
+                    <p class="text-blue-600 font-semibold text-lg mt-1">฿{{ product.sale_price|floatformat:-2|intcomma }}</p>
                     {% endif %}
                 </div>
             </a>
