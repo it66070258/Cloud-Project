@@ -16,6 +16,85 @@
         body {
             font-family: "Prompt", sans-serif;
         }
+
+        .sidebar {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-text {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.2);
+        }
+
+        .menu-button {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(180deg, #3b82f6, #06b6d4);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-button:hover {
+            background: linear-gradient(90deg, #eff6ff 0%, #e0f2fe 100%);
+            padding-left: 1.2rem;
+        }
+
+        .menu-button:hover::before {
+            transform: translateX(0);
+        }
+
+        .menu-button-active {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-button-active::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            bottom: -50%;
+            left: -50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+        }
+
+        .logout-button {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .logout-button:hover {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-color: #3b82f6;
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        .content-card {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .content-card:hover {
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15);
+        }
     </style>
     <title>
         {% block title %} Title {% endblock %}
@@ -23,24 +102,22 @@
 </head>
 
 <body>
-    <div class="flex flex-col justify-between fixed w-60 h-screen top-0 left-0 z-40 shadow-sm">
+    <div class="sidebar flex flex-col justify-between fixed w-60 h-screen top-0 left-0 z-40">
         <div>
 
-            <div class="py-6 px-6 hover:cursor-pointer border-b-1 border-gray-200">
+            <div class="py-6 px-6 hover:cursor-pointer border-b border-blue-100">
                 <a href="{% url 'admin_home' %}">
-                    <h1 class="text-3xl font-semibold text-purple-700">ITShop
-                        <span
-                            class="text-sm font-light text-yellow-600 ms-1">/admin
-                        </span>
+                    <h1 class="text-xl font-bold logo-text">GigaGadget
+                        <span class="text-sm font-light text-blue-400 ms-1" style="-webkit-text-fill-color: #60a5fa;">/admin</span>
                     </h1>
                 </a>
             </div>
             
 
-            <div class="flex flex-col px-3 py-6 gap-3">
+            <div class="flex flex-col px-3 py-6 gap-2">
                 <a href="{% url 'admin_home' %}">
                     {% block home_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-50 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-house me-2"></i>
                         <span class="font-regular">หน้าหลัก</span>
                     </button>
@@ -48,7 +125,7 @@
                 </a>
                 <a href="{% url 'order' %}">
                     {% block order_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-50 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-file-invoice me-2"></i>
                         <span class="font-regular">คำสั่งซื้อ</span>
                     </button>
@@ -56,7 +133,7 @@
                 </a>
                 <a href="{% url 'product' %}">
                     {% block product_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-50 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-box-open me-2"></i>
                         <span class="font-regular">สินค้า</span>
                     </button>
@@ -64,7 +141,7 @@
                 </a>
                 <a href="{% url 'category' %}">
                     {% block category_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-50 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-list me-2"></i>
                         <span class="font-regular">หมวดหมู่</span>
                     </button>
@@ -72,7 +149,7 @@
                 </a>
                 <a href="{% url 'brand' %}">
                     {% block brand_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-50 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-tag me-2"></i>
                         <span class="font-regular">แบรนด์</span>
                     </button>
@@ -80,7 +157,7 @@
                 </a>
                 <a href="{% url 'code' %}">
                     {% block code_button %}
-                    <button class="w-full p-3 ps-4 rounded-md text-left hover:bg-gray-100 hover:cursor-pointer">
+                    <button class="menu-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                         <i class="fa-solid fa-percent me-2"></i>
                         <span class="font-regular">โค้ดส่วนลด</span>
                     </button>
@@ -89,10 +166,9 @@
             </div>
         </div>
 
-        <div class="px-3 py-6 border-t-1 border-gray-200">
+        <div class="px-3 py-6 border-t border-blue-100">
             <a href="{% url 'logout' %}">
-                <button
-                    class="w-full p-3 ps-4 rounded-md text-left hover:bg-red-100 hover:text-red-800 hover:cursor-pointer">
+                <button class="logout-button w-full p-3 ps-4 rounded-lg text-left hover:cursor-pointer text-gray-700">
                     <i class="fa-solid fa-right-from-bracket me-2"></i>
                     <span class="font-regular">ออกจากระบบ</span>
                 </button>
@@ -100,13 +176,13 @@
         </div>
     </div>
 
-    <div class="flex flex-col items-center ml-60 bg-gray-50 min-h-screen">
+    <div class="flex flex-col items-center ml-60 bg-gradient-to-br from-rose-50/50 via-pink-50/30 to-purple-50/20 min-h-screen">
         <div class="w-9/10 mt-14 mb-4">
             {% block head %}
                 <h1 class="text-2xl">หน้า....</h1>
             {% endblock %}
         </div>
-        <div class="w-9/10 bg-white rounded-md border border-gray-200">
+        <div class="content-card w-9/10 bg-white/95 backdrop-blur-sm rounded-xl border border-pink-200/30 shadow-sm">
             {% block content %}
                 <h2 class="text-center mt-32">content....</h2>
             {% endblock %}

@@ -4,52 +4,52 @@
 {% block title %}โค้ดส่วนลด - IT Shop{% endblock %}
 
 {% block code_button %}
-<button
-    class="w-full p-3 ps-4 rounded-md text-left text-white bg-gradient-to-bl from-purple-400 to-purple-900 hover:to-purple-500 hover:cursor-pointer">
-    <i class="fa-solid fa-ticket me-2"></i>
-    <span class="font-regular">โค้ดส่วนลด</span>
+<button class="menu-button-active w-full p-3 ps-4 rounded-lg text-left text-white hover:cursor-pointer">
+    <i class="fa-solid fa-percent me-2"></i>
+    <span class="font-medium">โค้ดส่วนลด</span>
 </button>
 {% endblock %}
 
 {% block head %}
 <div class="flex justify-between items-center">
-    <h1 class="text-2xl ms-1 text-gray-600">โค้ดส่วนลด</h1>
+    <h1 class="text-3xl ms-1 font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">โค้ดส่วนลด</h1>
     <a href="{% url 'code_create' %}">
         <button
-            class="w-full p-2 rounded-md text-left bg-purple-700 text-white hover:bg-purple-600 hover:cursor-pointer">
-            <i class="fa-solid fa-plus"></i>
-            <span class="font-regular">เพิ่มโค้ดส่วนลด</span>
+            class="px-4 py-2.5 rounded-lg text-left bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 hover:cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 font-medium">
+            <i class="fa-solid fa-plus me-1"></i>
+            <span>เพิ่มโค้ดส่วนลด</span>
         </button>
     </a>
 </div>
 {% endblock %}
 
 {% block content %}
+<div class="p-4">
 <table class="w-full">
     <thead>
-        <tr class="border-b border-gray-300 text-sm text-left">
-            <th class="p-4">โค้ด</th>
-            <th class="p-4">จำนวนส่วนลด</th>
-            <th class="p-4">วันเริ่มต้น</th>
-            <th class="p-4">วันสิ้นสุด</th>
-            <th class="p-4">สถานะ</th>
-            <th class="p-4">ใช้ไปแล้ว</th>
-            <th class="p-4">จัดการ</th>
+        <tr class="border-b-2 border-blue-200 text-sm text-left bg-gradient-to-r from-blue-50 to-cyan-50">
+            <th class="p-4 font-semibold text-gray-700">โค้ด</th>
+            <th class="p-4 font-semibold text-gray-700">จำนวนส่วนลด</th>
+            <th class="p-4 font-semibold text-gray-700">วันเริ่มต้น</th>
+            <th class="p-4 font-semibold text-gray-700">วันสิ้นสุด</th>
+            <th class="p-4 font-semibold text-gray-700">สถานะ</th>
+            <th class="p-4 font-semibold text-gray-700">ใช้ไปแล้ว</th>
+            <th class="p-4 font-semibold text-gray-700">จัดการ</th>
         </tr>
     </thead>
     <tbody>
         {% for code in discount_codes %}
-        <tr class="border-b border-gray-200 text-sm">
-            <td class="p-4 font-medium">{{ code.code }}</td>
-            <td class="p-4">
+        <tr class="border-b border-gray-200 text-sm hover:bg-blue-50 transition-colors duration-200">
+            <td class="p-4 font-semibold text-gray-800">{{ code.code }}</td>
+            <td class="p-4 text-gray-700 font-medium">
                 {% if code.code_type == 'PERCENT' %}
                 {{ code.value|floatformat:-2 }}%
                 {% else %}
                 ฿{{ code.value|floatformat:-2|intcomma }}
                 {% endif %}
             </td>
-            <td class="p-4">{{ code.start_date|date:"d/m/Y H:i" }}</td>
-            <td class="p-4">
+            <td class="p-4 text-gray-600">{{ code.start_date|date:"d/m/Y H:i" }}</td>
+            <td class="p-4 text-gray-600">
                 {% if code.end_date %}
                 {{ code.end_date|date:"d/m/Y H:i" }}
                 {% else %}
@@ -58,23 +58,23 @@
             </td>
             <td class="p-4">
                 {% if code.is_active %}
-                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-300 text-green-700 text-xs">
+                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-200 text-green-700 text-xs font-medium">
                     <i class="fa-solid fa-circle-check"></i>
                     เปิดใช้งาน
                 </div>
                 {% else %}
-                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-300 text-red-600 text-xs">
+                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-200 text-red-700 text-xs font-medium">
                     <i class="fa-solid fa-circle-xmark"></i>
                     ปิดใช้งาน
                 </div>
                 {% endif %}
             </td>
-            <td class="p-4">{{ code.usage_count|intcomma }}</td>
+            <td class="p-4 text-gray-700 font-medium">{{ code.usage_count|intcomma }}</td>
             <td class="p-4">
                 <a href="{% url 'code_edit' code.id %}">
                     <button
-                        class="px-2 py-1 text-white bg-yellow-500 hover:bg-yellow-600/70 rounded-md text-sm hover:cursor-pointer">
-                        <i class="fa-solid fa-pencil-alt"></i>
+                        class="px-4 py-2 text-white bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 rounded-lg text-sm hover:cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 font-medium">
+                        <i class="fa-solid fa-pencil-alt me-1"></i>
                         แก้ไข
                     </button>
                 </a>
@@ -82,11 +82,13 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="8" class="text-center text-gray-500 py-4">
-                ยังไม่มีโค้ดส่วนลด
+            <td colspan="8" class="text-center text-gray-500 py-8">
+                <i class="fa-solid fa-inbox text-4xl text-gray-300 mb-2"></i>
+                <p>ยังไม่มีโค้ดส่วนลด</p>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock %}

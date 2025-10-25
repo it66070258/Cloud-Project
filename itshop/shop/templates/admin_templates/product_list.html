@@ -5,79 +5,79 @@
 {% block title %} รายการสินค้า - IT Shop {% endblock %}
 
 {% block product_button %}
-<button
-    class="w-full p-3 ps-4 rounded-md text-left text-white bg-gradient-to-bl from-purple-400 to-purple-900 hover:to-purple-500 hover:cursor-pointer">
+<button class="menu-button-active w-full p-3 ps-4 rounded-lg text-left text-white hover:cursor-pointer">
     <i class="fa-solid fa-box-open me-2"></i>
-    <span class="font-regular">สินค้า</span>
+    <span class="font-medium">สินค้า</span>
 </button>
 {% endblock %}
 
 {% block head %}
 <div class="flex justify-between items-center">
-    <h1 class="text-2xl ms-1 text-gray-600">รายการสินค้า</h1>
+    <h1 class="text-3xl ms-1 font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">รายการสินค้า</h1>
     <a href="{% url 'product_create' %}">
         <button
-            class="w-full p-2 rounded-md text-left bg-purple-700 text-white hover:bg-purple-600 hover:cursor-pointer">
-            <i class="fa-solid fa-plus"></i>
-            <span class="font-regular">เพิ่มสินค้า</span>
+            class="px-4 py-2.5 rounded-lg text-left bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 hover:cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 font-medium">
+            <i class="fa-solid fa-plus me-1"></i>
+            <span>เพิ่มสินค้า</span>
         </button>
     </a>
 </div>
-<div class="flex gap-4 mt-4 border border-gray-200 rounded-md p-2 bg-white text-center">
+<div class="flex gap-3 mt-4 border border-blue-200 rounded-xl p-3 bg-gradient-to-r from-white to-blue-50 shadow-sm text-center">
     <a href="{% url 'product' %}?status=ALL"
-        class="px-2 py-2 rounded-md text-sm font-medium {% if request.GET.status == 'ALL' or not request.GET.status %}bg-purple-500 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {% if request.GET.status == 'ALL' or not request.GET.status %}bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md{% else %}bg-white text-gray-700 hover:bg-blue-50 border border-gray-200{% endif %}">
         ทั้งหมด
     </a>
     <a href="{% url 'product' %}?status=LOW" 
-           class="px-2 py-2 rounded-md text-sm font-medium {% if request.GET.status == 'LOW' %}bg-purple-500 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+           class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {% if request.GET.status == 'LOW' %}bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md{% else %}bg-white text-gray-700 hover:bg-blue-50 border border-gray-200{% endif %}">
            คงเหลือต่ำ
     </a>
     <a href="{% url 'product' %}?status=SALE"
-        class="px-2 py-2 rounded-md text-sm font-medium {% if request.GET.status == 'SALE' %}bg-purple-500 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {% if request.GET.status == 'SALE' %}bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md{% else %}bg-white text-gray-700 hover:bg-blue-50 border border-gray-200{% endif %}">
         วางขาย
     </a>
     <a href="{% url 'product' %}?status=NOT_SALE"
-        class="px-2 py-2 rounded-md text-sm font-medium {% if request.GET.status == 'NOT_SALE' %}bg-purple-500 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %}">
+        class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 {% if request.GET.status == 'NOT_SALE' %}bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md{% else %}bg-white text-gray-700 hover:bg-blue-50 border border-gray-200{% endif %}">
         ปิดขาย
     </a>
 </div>
 {% endblock %}
 
 {% block content %}
+<div class="p-4">
 <table class="w-full">
     <thead>
-        <tr class="border-b border-gray-300 text-sm text-left">
-            <th class="p-4 w-[128px]">สินค้า</th>
-            <th class="p-4"></th>
-            <th class="p-4">แบรนด์</th>
-            <th class="p-4">หมวดหมู่</th>
-            <th class="p-4">คงเหลือ</th>
-            <th class="p-4">ราคาพื้นฐาน</th>
-            <th class="p-4">ส่วนลด</th>
-            <th class="p-4">ราคาขาย</th>
-            <th class="p-4">สถานะ</th>
-            <th class="p-4">จัดการ</th>
+        <tr class="border-b-2 border-blue-200 text-sm text-left bg-gradient-to-r from-blue-50 to-cyan-50">
+            <th class="p-4 w-[128px] font-semibold text-gray-700">สินค้า</th>
+            <th class="p-4 font-semibold text-gray-700"></th>
+            <th class="p-4 font-semibold text-gray-700">แบรนด์</th>
+            <th class="p-4 font-semibold text-gray-700">หมวดหมู่</th>
+            <th class="p-4 font-semibold text-gray-700">คงเหลือ</th>
+            <th class="p-4 font-semibold text-gray-700">ราคาพื้นฐาน</th>
+            <th class="p-4 font-semibold text-gray-700">ส่วนลด</th>
+            <th class="p-4 font-semibold text-gray-700">ราคาขาย</th>
+            <th class="p-4 font-semibold text-gray-700">สถานะ</th>
+            <th class="p-4 font-semibold text-gray-700">จัดการ</th>
         </tr>
     </thead>
     <tbody>
         {% for product in products %}
-        <tr class="border-b border-gray-200 text-sm">
+        <tr class="border-b border-gray-200 text-sm hover:bg-blue-50 transition-colors duration-200">
             <td class="p-4">
                 {% if product.image %}
-                <img class="rounded-md object-cover h-[72px] w-[96px]" src="{{product.image.url}}" width="96"
+                <img class="rounded-lg object-cover h-[72px] w-[96px] border-2 border-blue-200 shadow-sm" src="{{product.image.url}}" width="96"
                     height="72" alt="Product's Image" />
                 {% else %}
-                <img class="rounded-md object-cover h-[72px] w-[96px]" src="{% static 'img/no_img.jpeg' %}" width="96"
+                <img class="rounded-lg object-cover h-[72px] w-[96px] border-2 border-blue-200 shadow-sm" src="{% static 'img/no_img.jpeg' %}" width="96"
                     height="72" alt="Product's Image" />
                 {% endif %}
             </td>
-            <td class="p-4">
+            <td class="p-4 text-gray-800 font-medium">
                 {{ product.name|truncatechars:30}}
             </td>
-            <td class="p-4">
+            <td class="p-4 text-gray-700">
                 {{product.brand|default_if_none:"-"}}
             </td>
-            <td class="p-4">
+            <td class="p-4 text-gray-700">
                 {% if product.category %}
                 {{product.category}}
                 {% else %}
@@ -86,36 +86,36 @@
             </td>
             <td class="p-4">
                 {% if not product.stock %}
-                <p class="text-red-600">สินค้าหมด</p>
+                <span class="px-3 py-1 rounded-lg bg-red-100 text-red-700 font-semibold text-xs">สินค้าหมด</span>
                 {% elif product.stock < 5 %}
-                <p class="text-yellow-700">{{product.stock|intcomma}} ชิ้น</p>
+                <span class="px-3 py-1 rounded-lg bg-yellow-100 text-yellow-700 font-semibold text-xs">{{product.stock|intcomma}} ชิ้น</span>
                 {% else %}
-                {{ product.stock|intcomma}} ชิ้น
+                <span class="text-gray-700 font-medium">{{ product.stock|intcomma}} ชิ้น</span>
                 {% endif %}
             </td>
-            <td class="p-4">
-                <span class="text-xs">฿</span>{{product.price|intcomma}}
+            <td class="p-4 text-gray-700">
+                <span class="text-xs">฿</span><span class="font-medium">{{product.price|intcomma}}</span>
             </td>
-            <td class="p-4">
+            <td class="p-4 text-gray-700">
                 {% if product.discount_type == "PERCENT" %}
-                {{product.discount_value }}<span class="text-xs">%</span>
+                <span class="font-medium">{{product.discount_value }}</span><span class="text-xs">%</span>
                 {% elif product.discount_type == "FIXED" %}
-                <span class="text-xs">฿</span>{{product.discount_value|intcomma }}
+                <span class="text-xs">฿</span><span class="font-medium">{{product.discount_value|intcomma }}</span>
                 {% else %}
                 –
                 {% endif %}
             </td>
             <td class="p-4">
-                <span class="text-xs">฿</span>{{product.sale_price|floatformat:2|intcomma}}
+                <span class="text-xs">฿</span><span class="font-bold bg-gradient-to-r from-blue-600 to-cyan-500" style="background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">{{product.sale_price|floatformat:2|intcomma}}</span>
             </td>
             <td class="p-4">
                 {% if product.is_active %}
-                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-300 text-green-700 text-xs">
+                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-green-200 text-green-700 text-xs font-medium shadow-sm">
                     <i class="fa-solid fa-circle-check"></i>
                     วางขาย
                 </div>
                 {% else %}
-                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-red-300 text-red-600 text-xs">
+                <div class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-red-200 text-red-600 text-xs font-medium shadow-sm">
                     <i class="fa-solid fa-circle-xmark"></i>
                     ไม่วางขาย
                 </div>
@@ -124,8 +124,8 @@
             <td class="p-4">
                 <a href="{% url 'product_edit' product.id %}">
                     <button
-                        class="px-2 py-1 text-white bg-yellow-500 hover:bg-yellow-600/70 rounded-md text-sm hover:cursor-pointer">
-                        <i class="fa-solid fa-pencil-alt"></i>
+                        class="px-4 py-2 text-white bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 rounded-lg text-sm hover:cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 font-medium">
+                        <i class="fa-solid fa-pencil-alt me-1"></i>
                         แก้ไข
                     </button>
                 </a>
@@ -135,4 +135,5 @@
 
     </tbody>
 </table>
+</div>
 {% endblock %}
