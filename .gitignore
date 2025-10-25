@@ -1,4 +1,4 @@
 .env
-myvenv/
+venv/
 media/
 __pycache__/
