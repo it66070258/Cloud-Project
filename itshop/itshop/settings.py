@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-0$o!^6g@8%o#1)ao543)!55nh8123ugbc_#9r@a1u7u28@&7=-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'shop',
     'ckeditor',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -70,8 +71,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "itshop",
         "USER": "postgres",
-        "PASSWORD": "1234",
-        "HOST": "localhost",
+        "PASSWORD": "postgres",
+        "HOST": "gg-db.cdsyamyv62ng.us-east-1.rds.amazonaws.com",
         "PORT": "5432",
     }
 }
@@ -126,13 +127,18 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+AWS_ACCESS_KEY_ID = '' # ว่างเพื่อใช้ IAM Role จาก EC2
+AWS_SECRET_ACCESS_KEY = ''
+
+AWS_STORAGE_BUCKET_NAME = 'giga-gadget-s3'
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3MediaStorage'
 
 LOGIN_URL = "/login/"
 
