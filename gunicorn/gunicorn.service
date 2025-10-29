@@ -1,0 +1,15 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/Cloud-Project/itshop
+ExecStart=/home/ubuntu/Cloud-Project/venv/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          --bind 0.0.0.0:8000 \
+          itshop.wsgi:application
+[Install]
+WantedBy=multi-user.target
