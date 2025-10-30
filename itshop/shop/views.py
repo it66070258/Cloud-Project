@@ -743,7 +743,7 @@ class CreateProductView(PermissionRequiredMixin, View):
             product_form.save()
             uploaded_file = request.FILES['productimage']
             s3client.upload_fileobj(
-                uploaded_file.read(),
+                uploaded_file,
                 bucket_name,
                 "media/product_images/"+uploaded_file.name,
                 ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
@@ -768,7 +768,7 @@ class EditProductView(PermissionRequiredMixin, View):
             product_form.save()
             uploaded_file = request.FILES['productimage']
             s3client.upload_fileobj(
-                uploaded_file.read(),
+                uploaded_file,
                 bucket_name,
                 "media/product_images/"+uploaded_file.name,
                 ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
