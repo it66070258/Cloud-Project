@@ -67,7 +67,7 @@
             <div class="relative">
                 <button onclick="toggleDropdown()" class="flex items-center justify-center">
                     {% if user.customer.image %}
-                    <img src="{{user.customer.image.url}}" alt="Profile"
+                    <img src="{{user.customer.image_base64}}" alt="Profile"
                         class="w-7 h-7 rounded-full object-cover border-2 border-blue-200 hover:cursor-pointer hover:border-blue-400 transition-colors duration-200">
                     {% else %}
                     <img src="{% static 'img/user_default_img.png' %}" alt="Profile"

@@ -49,7 +49,7 @@
                             <tr class="border-b border-gray-200 hover:bg-blue-50 transition-colors duration-200">
                                 <td class="p-2 flex items-center gap-4">
                                     {% if item.product.image %}
-                                        <img src="{{ item.product.image.url }}" class="w-16 h-16 object-cover rounded-md">
+                                        <img src="{{ item.product.image_base64 }}" class="w-16 h-16 object-cover rounded-md">
                                     {% else %}
                                         <img src="{% static 'img/no_img.jpeg' %}" class="w-16 h-16 object-cover rounded-md">
                                     {% endif %}
@@ -122,7 +122,7 @@
 
                     <p class="text-sm text-gray-700 mb-2 mt-3 font-medium">หลักฐานการชำระเงิน:</p>
                     <div class="flex justify-center">
-                        <img src="{{ order.payment.slip_image.url }}" alt="Slip" class="w-72 object-cover rounded-xl border-2 border-blue-200 shadow-md">
+                        <img src="{{ order.payment.image_base64 }}" alt="Slip" class="w-72 object-cover rounded-xl border-2 border-blue-200 shadow-md">
                     </div>
                 {% else %}
                     <div class="p-4 border-2 border-dashed border-blue-300 rounded-xl text-center bg-blue-50/30">

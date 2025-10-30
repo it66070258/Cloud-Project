@@ -61,6 +61,21 @@ def attach_product_images(products):
             print(f"error: {e}")
             product.image_base64 = None
 
+def attach_paymet_slip_image(payment):
+    if payment.slip_image.name:
+        key = f"media/{payment.slip_image.name}"
+        try:
+            response = s3client.get_object(Bucket=bucket_name, Key=key)
+            image_bytes = response["Body"].read()
+            content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
+                        
+            encoded = base64.b64encode(image_bytes).decode("utf-8")
+            payment.image_base64 = f"data:{content_type};base64,{encoded}"
+        except Exception as e:
+            print(f"error: {e}")
+            payment.image_base64 = None
+
+
 def get_cart_items(customer):
     cart_items = CartItem.objects.filter(customer=customer, product__is_active=True, product__stock__gt=0).annotate(
         sale_price=Case(
@@ -179,6 +194,8 @@ class ProductListView(View):
     
 class ProductDetailView(View):
     def get(self, request, id):
+        if request.user.is_authenticated and request.user.customer:
+            attach_cutomer_image(request.user.customer)
         product = Product.objects.filter(id=id, is_active=True).annotate(
             sale_price=Case(
                 When(discount_type="NONE", then=F("price")),
@@ -191,6 +208,7 @@ class ProductDetailView(View):
             customer = Customer.objects.get(user=request.user)
             # check ว่ามีอยู่ในรายการ wishlist ไหม
             in_wishlist = check_in_wishlist(customer, product.id)
+        attach_product_images([product])
         context = {
             "product": product,
             "in_wishlist": in_wishlist
@@ -202,6 +220,7 @@ class EditProfileView(PermissionRequiredMixin, View):
     def get(self, request):
         user_form = UserForm(instance=request.user)
         customer_form = CustomerForm(instance=request.user.customer)
+        attach_cutomer_image(request.user.customer)
         context = {
             "user_form": user_form,
             "customer_form": customer_form,
@@ -222,6 +241,7 @@ class EditProfileView(PermissionRequiredMixin, View):
                 ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
             )
             return redirect("product_list")
+        attach_cutomer_image(request.user.customer)
         context = {
             "user_form": user_form,
             "customer_form": customer_form,
@@ -233,6 +253,7 @@ class AddressView(PermissionRequiredMixin, View):
     permission_required = ["shop.view_address"]
     def get(self, request):
         addresses = Address.objects.filter(customer=request.user.customer)
+        attach_cutomer_image(request.user.customer)
         context = {"addresses": addresses}
         return render(request, "customer_templates/address_list.html", context)
 
@@ -240,6 +261,7 @@ class CreateAddressView(PermissionRequiredMixin, View):
     permission_required = ["shop.add_address"]
     def get(self, request):
         address_form = AddressForm()
+        attach_cutomer_image(request.user.customer)
         context = {"form": address_form}
         return render(request, "customer_templates/address_create.html", context)
     def post(self, request):
@@ -249,6 +271,7 @@ class CreateAddressView(PermissionRequiredMixin, View):
             address.customer = request.user.customer
             address.save()
             return redirect("address")
+        attach_cutomer_image(request.user.customer)
         context = {'form': address_form}
         return render(request, "customer_templates/address_create.html", context)
 
@@ -259,6 +282,7 @@ class EditAddressView(PermissionRequiredMixin, View):
         if address.customer != request.user.customer:
             raise PermissionDenied()
         address_form = AddressForm(instance=address)
+        attach_cutomer_image(request.user.customer)
         context = {"form": address_form}
         return render(request, "customer_templates/address_edit.html", context)
     def post(self, request, id):
@@ -269,6 +293,7 @@ class EditAddressView(PermissionRequiredMixin, View):
         if address_form.is_valid():
             address_form.save()
             return redirect("address")
+        attach_cutomer_image(request.user.customer)
         context = {'form': address_form}
         return render(request, "customer_templates/address_edit.html", context)
     
@@ -293,6 +318,8 @@ class WishlistView(PermissionRequiredMixin, View):
                 When(discount_type="FIXED", then=(F("price") - F("discount_value"))),
             )
         )
+        attach_cutomer_image(request.user.customer)
+        attach_product_images(products)
         context = {
             "products": products,
             "total": products.count()
@@ -331,6 +358,9 @@ class CartView(PermissionRequiredMixin, View):
         customer = Customer.objects.get(user=request.user)
         cart_items, total = get_cart_items(customer)
         ex_cart_items = CartItem.objects.filter(Q(customer=customer), (Q(product__is_active=False) |  Q(product__stock=0)))
+        attach_product_images([item.product for item in cart_items])
+        attach_product_images([item.product for item in ex_cart_items])
+        attach_cutomer_image(request.user.customer)
         context = {
             "cart_items": cart_items,
             "ex_cart_items": ex_cart_items,
@@ -392,6 +422,9 @@ class CheckoutView(PermissionRequiredMixin, View):
         if not cart_items.exists():
             return redirect("cart")
         
+        attach_product_images([item.product for item in cart_items])
+        attach_cutomer_image(request.user.customer)
+
         context = {
             "cart_items": cart_items,
             "addresses": addresses,
@@ -411,6 +444,9 @@ class CheckoutView(PermissionRequiredMixin, View):
         address_id = int(request.POST.get("address_id") or -1)
         discount_amount = 0
         discount_code = None
+
+        attach_product_images([item.product for item in cart_items])
+        attach_cutomer_image(request.user.customer)
 
         action = request.POST.get("action")
         # ถ้ากด ใช้โค้ด
@@ -552,6 +588,7 @@ class PaymentView(PermissionRequiredMixin, View):
         if order.customer != request.user.customer:
             raise PermissionDenied()
         form = PaymentForm()
+        attach_cutomer_image(request.user.customer)
         context = {
             "order": order,
             "form": form,
@@ -571,6 +608,7 @@ class PaymentView(PermissionRequiredMixin, View):
             payment.save()
 
             return redirect("order_detail", order.id)
+        attach_cutomer_image(request.user.customer)
         context = {
             "order": order,
             "form": form
@@ -591,6 +629,7 @@ class OrderListView(PermissionRequiredMixin, View):
             orders = orders.filter(status="PENDING").exclude(payment__isnull=True)
         elif status != "ALL":
             orders = orders.filter(status=status)
+        attach_cutomer_image(request.user.customer)
         context = {
             "orders": orders,
         }
@@ -605,6 +644,10 @@ class OrderDetailView(PermissionRequiredMixin, View):
         order_items = OrderItem.objects.filter(order=order).annotate(total=(F("unit_price")-F("discount_price"))*F("quantity"))
         if order.customer != request.user.customer:
             raise PermissionDenied()
+        attach_product_images([item.product for item in order_items])
+        if order.payment:
+            attach_paymet_slip_image(order.payment)
+        attach_cutomer_image(request.user.customer)
         context = {
             "order": order,
             "order_items": order_items
@@ -674,6 +717,9 @@ class ProductView(PermissionRequiredMixin, View):
             products = products.filter(is_active=True)
         elif status == "NOT_SALE":
             products = products.filter(is_active=False)
+        
+        attach_product_images(products)
+
         context = {"products": products}
         return render(request, "admin_templates/product_list.html", context)
 
@@ -697,6 +743,7 @@ class EditProductView(PermissionRequiredMixin, View):
     def get(self, request, id):
         product = Product.objects.get(id=id)
         product_form = ProductForm(instance=product)
+        attach_product_images([product])
         context = {'form': product_form}
         return render(request, "admin_templates/product_edit.html", context)
     
@@ -902,6 +949,10 @@ class AdminOrderDetailView(PermissionRequiredMixin, View):
     def get(self, request, id):
         order = Order.objects.filter(id=id).annotate(final_price=F("total_price")-F("discount_amount")).first()
         order_items = OrderItem.objects.filter(order=order).annotate(total=(F("unit_price")-F("discount_price"))*F("quantity"))
+        attach_product_images([item.product for item in order_items])
+        if order.payment:
+            attach_paymet_slip_image(order.payment)
+        attach_cutomer_image(order.customer)
         context = {
             "order": order,
             "order_items": order_items

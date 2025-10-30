@@ -33,7 +33,7 @@
                     <tr class="border-b border-gray-200 hover:bg-blue-50 transition-colors duration-200">
                         <td class="p-3 flex items-center gap-4">
                             {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                            <img src="{{ item.product.image_base64 }}" alt="{{ item.product.name }}"
                                 class="w-16 h-16 object-cover rounded-md">
                             {% else %}
                             <img src="{% static 'img/no_img.jpeg' %}" alt="" class="w-16 h-16 object-cover rounded-md">

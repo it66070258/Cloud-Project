@@ -22,7 +22,7 @@
                 <!-- image -->
                 <a href="{% url 'product_detail' product.id %}" class="w-1/4 border-r-2 border-blue-200">
                     {% if product.image %}
-                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-60 object-cover">
+                    <img src="{{ product.image_base64 }}" alt="{{ product.name }}" class="w-full h-60 object-cover">
                     {% else %}
                     <img src="{% static 'img/no_img.jpeg' %}" alt="" class="w-full h-60 object-cover">
                     {% endif %}

@@ -115,7 +115,7 @@
             <div class="w-3/7 flex flex-col gap-5">
                 <div class="pt-3 flex flex-col items-center gap-5 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
                     {% if form.instance.image %}
-                    <img id="preview" src="{{ form.instance.image.url }}" alt=""
+                    <img id="preview" src="{{ form.instance.image_base64 }}" alt=""
                         class="object-cover w-128 h-96 rounded-xl border-2 border-blue-200">
                     {% else %}
                     <img id="preview" src="{% static 'img/no_img.jpeg' %}" alt=""

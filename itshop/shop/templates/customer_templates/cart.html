@@ -33,7 +33,7 @@
                         <td class="p-3 flex items-center gap-4">
                             <a href="{% url 'product_detail' item.product.id%}">
                                 {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name}}"
+                                <img src="{{ item.product.image_base64 }}" alt="{{ item.product.name}}"
                                     class="w-16 h-16 object-cover rounded-md">
                                 {% else %}
                                 <img src="{% static 'img/no_img.jpeg' %}" alt="" class="w-16 h-16 object-cover rounded-md">
@@ -90,7 +90,7 @@
                         <td class="p-3 flex items-center gap-4">
                             <a href="{% if not item.product.stock %}{% url 'product_detail' item.product.id%}{% endif %}" class="relative">
                                 {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name}}"
+                                <img src="{{ item.product.image_base64 }}" alt="{{ item.product.name}}"
                                     class="w-16 h-16 object-cover rounded-md">
                                 {% else %}
                                 <img src="{% static 'img/no_img.jpeg' %}" alt="" class="w-16 h-16 object-cover rounded-md">
