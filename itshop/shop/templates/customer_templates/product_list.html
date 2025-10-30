@@ -81,7 +81,7 @@
                     class="flex flex-col h-full bg-white/95 backdrop-blur-sm rounded-xl border-2 border-blue-200 hover:shadow-lg transition-all p-4 duration-300">
                     <div class="relative">
                         {% if product.image %}
-                        <img src="{{ product.image_base64|safe} }}" alt="{{ product.name }}"
+                        <img src="{{ product.image_base64|safe }}" alt="{{ product.name }}"
                             class="w-full h-52 object-cover rounded-lg mb-3">
                         {% else %}
                         <img src="{% static 'img/no_img.jpeg' %}" alt=""
