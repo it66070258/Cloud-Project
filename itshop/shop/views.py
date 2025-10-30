@@ -180,21 +180,19 @@ class EditProfileView(PermissionRequiredMixin, View):
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
             customer_form.save()
-            print(request.FILES)
+            uploaded_file = request.FILES['image']
+            s3client.upload_fileobj(
+                uploaded_file,
+                bucket_name,
+                "media/customer_images/"+uploaded_file.name,
+                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+            )
             return redirect("product_list")
         context = {
             "user_form": user_form,
             "customer_form": customer_form,
         }
         return render(request, "customer_templates/profile_edit.html", context)
-    
-    #uploaded_file = request.FILES['my_file']
-    #s3_client.upload_fileobj(
-    #                uploaded_file,
-    #                bucket_name,
-    #                s3_object_key,
-    #                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
-    #            )
 
 # ADDRESS
 class AddressView(PermissionRequiredMixin, View):
