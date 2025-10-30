@@ -41,6 +41,7 @@
                         class="inline-block border-2 border-blue-200 hover:border-blue-400 hover:bg-blue-50 rounded-lg p-2 text-center text-blue-500 hover:text-blue-600 hover:cursor-pointer font-medium transition-all duration-300">
                         <i class="fa-solid fa-upload mr-2"></i>อัพโหลดรูปภาพ
                     </label>
+                    <input type="file" name="slipimage" id="slipimage">
                     {{form.slip_image}}
                     <ul class="text-red-500 mt-2">
                         {% for error in form.slip_image.errors %}
@@ -100,9 +101,11 @@
 
 <script>
     const image = document.getElementById('{{form.slip_image.id_for_label}}')
+    const slipimage = document.getElementById('slipimage')
     const preview = document.getElementById('preview')
     image.addEventListener('change', () => {
         const [file] = image.files
+        slipimage.files = image.files
         if (file) {
             preview.src = URL.createObjectURL(file)
             preview.classList.remove('hidden')

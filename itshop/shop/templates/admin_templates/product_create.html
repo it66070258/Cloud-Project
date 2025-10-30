@@ -88,6 +88,7 @@
                         <i class="fa-solid fa-image me-1"></i> เลือกรูปภาพ
                     </label>
                 </div>
+                <input type="file" name="productimage" id="productimage">
                 {{form.image}}
 
                 <div class="flex pb-1 gap-5 border border-blue-200 p-6 rounded-xl bg-white shadow-sm">
@@ -203,9 +204,11 @@
 {% block script %}
 <script>
     const image = document.getElementById('{{form.image.id_for_label}}')
+    const productimage = document.getElementById('productimage')
     const preview = document.getElementById('preview')
     image.addEventListener('change', () => {
         const [file] = image.files
+        productimage.files = image.files
         if (file) {
             preview.src = URL.createObjectURL(file)
             preview.classList.remove('hidden')
