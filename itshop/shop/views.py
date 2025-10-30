@@ -122,7 +122,7 @@ class ProductListView(View):
             )
         ).order_by(orderby)
         for i in products:
-            response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image.url)
+            response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image.name)
             object_content = response['Body'].read().decode('utf-8')
             i.image = object_content
         if category!="all":
