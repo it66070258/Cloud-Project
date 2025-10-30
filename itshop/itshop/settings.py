@@ -113,7 +113,6 @@ CKEDITOR_CONFIGS = {
     }
 }
 
-
 # Internationalization
 
 LANGUAGE_CODE = 'en-us'
@@ -123,26 +122,6 @@ TIME_ZONE = "Asia/Bangkok"
 USE_I18N = True
 
 USE_TZ = True
-
-
-# --- AWS S3 CONFIG ---
-AWS_STORAGE_BUCKET_NAME = "giga-gadget-s3"
-AWS_S3_REGION_NAME = "us-east-1"
-AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_VERIFY = True
-
-# ใช้ IAM Role ของ EC2 (เว้น key ไว้)
-AWS_ACCESS_KEY_ID = ""
-AWS_SECRET_ACCESS_KEY = ""
-
-# STATIC
-STATICFILES_STORAGE = 'itshop.custom_storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'itshop.custom_storages.MediaStorage'
-
-STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/static/'
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/media/'
 
 LOGIN_URL = "/login/"
 
