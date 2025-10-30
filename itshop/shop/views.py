@@ -61,7 +61,7 @@ def attach_product_images(products):
             print(f"error: {e}")
             product.image_base64 = None
 
-def attach_paymet_slip_image(payment):
+def attach_payment_slip_image(payment):
     if payment.slip_image.name:
         key = f"media/{payment.slip_image.name}"
         try:
@@ -155,7 +155,7 @@ class ChangePasswordView(View):
 # PRODUCT (customer)
 class ProductListView(View):
     def get(self, request):
-        if request.user.is_authenticated and request.user.customer:
+        if request.user.is_authenticated and is_admin(request.user):
             attach_cutomer_image(request.user.customer)
         search = request.GET.get("search", "")
         category = request.GET.get("category", "all")
@@ -194,7 +194,7 @@ class ProductListView(View):
     
 class ProductDetailView(View):
     def get(self, request, id):
-        if request.user.is_authenticated and request.user.customer:
+        if request.user.is_authenticated and not is_admin(request.user):
             attach_cutomer_image(request.user.customer)
         product = Product.objects.filter(id=id, is_active=True).annotate(
             sale_price=Case(
@@ -645,8 +645,9 @@ class OrderDetailView(PermissionRequiredMixin, View):
         if order.customer != request.user.customer:
             raise PermissionDenied()
         attach_product_images([item.product for item in order_items])
-        if order.payment:
-            attach_paymet_slip_image(order.payment)
+        payment = getattr(order, "payment", None)
+        if payment:
+            attach_payment_slip_image(payment)
         attach_cutomer_image(request.user.customer)
         context = {
             "order": order,
@@ -950,8 +951,9 @@ class AdminOrderDetailView(PermissionRequiredMixin, View):
         order = Order.objects.filter(id=id).annotate(final_price=F("total_price")-F("discount_amount")).first()
         order_items = OrderItem.objects.filter(order=order).annotate(total=(F("unit_price")-F("discount_price"))*F("quantity"))
         attach_product_images([item.product for item in order_items])
-        if order.payment:
-            attach_paymet_slip_image(order.payment)
+        payment = getattr(order, "payment", None)
+        if payment:
+            attach_payment_slip_image(payment)
         attach_cutomer_image(order.customer)
         context = {
             "order": order,
