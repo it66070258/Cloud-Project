@@ -233,13 +233,14 @@ class EditProfileView(PermissionRequiredMixin, View):
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
             customer_form.save()
-            uploaded_file = request.FILES['editprofiles3']
-            s3client.upload_fileobj(
-                uploaded_file,
-                bucket_name,
-                "media/customer_images/"+uploaded_file.name,
-                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
-            )
+            if 'editprofiles3' in request.FILES:
+                uploaded_file = request.FILES['editprofiles3']
+                s3client.upload_fileobj(
+                    uploaded_file,
+                    bucket_name,
+                    "media/customer_images/"+uploaded_file.name,
+                    ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+                )
             return redirect("product_list")
         attach_cutomer_image(request.user.customer)
         context = {
@@ -606,13 +607,14 @@ class PaymentView(PermissionRequiredMixin, View):
             payment.order = order
             payment.status = Payment.PaymentStatus.PENDING
             payment.save()
-            uploaded_file = request.FILES['slipimage']
-            s3client.upload_fileobj(
-                uploaded_file,
-                bucket_name,
-                "media/slip_images/"+uploaded_file.name,
-                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
-            )
+            if 'slipimage' in request.FILES:
+                uploaded_file = request.FILES['slipimage']
+                s3client.upload_fileobj(
+                    uploaded_file,
+                    bucket_name,
+                    "media/slip_images/"+uploaded_file.name,
+                    ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+                )
             return redirect("order_detail", order.id)
         attach_cutomer_image(request.user.customer)
         context = {
@@ -741,13 +743,14 @@ class CreateProductView(PermissionRequiredMixin, View):
         product_form = ProductForm(request.POST, request.FILES)
         if product_form.is_valid():
             product_form.save()
-            uploaded_file = request.FILES['productimage']
-            s3client.upload_fileobj(
-                uploaded_file,
-                bucket_name,
-                "media/product_images/"+uploaded_file.name,
-                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
-            )
+            if 'productimage' in request.FILES:
+                uploaded_file = request.FILES['productimage']
+                s3client.upload_fileobj(
+                    uploaded_file,
+                    bucket_name,
+                    "media/product_images/"+uploaded_file.name,
+                    ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+                )
             return redirect("product")
         context = {'form': product_form}
         return render(request, "admin_templates/product_create.html", context)
@@ -766,13 +769,14 @@ class EditProductView(PermissionRequiredMixin, View):
         product_form = ProductForm(request.POST, request.FILES, instance=product)
         if product_form.is_valid():
             product_form.save()
-            uploaded_file = request.FILES['productimage']
-            s3client.upload_fileobj(
-                uploaded_file,
-                bucket_name,
-                "media/product_images/"+uploaded_file.name,
-                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
-            )
+            if 'productimage' in request.FILES:
+                uploaded_file = request.FILES['productimage']
+                s3client.upload_fileobj(
+                    uploaded_file,
+                    bucket_name,
+                    "media/product_images/"+uploaded_file.name,
+                    ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+                )
             return redirect("product")
         context = {'form': product_form}
         return render(request, "admin_templates/product_edit.html", context)
