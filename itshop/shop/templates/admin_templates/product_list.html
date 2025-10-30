@@ -64,7 +64,7 @@
         <tr class="border-b border-gray-200 text-sm hover:bg-blue-50 transition-colors duration-200">
             <td class="p-4">
                 {% if product.image %}
-                <img class="rounded-lg object-cover h-[72px] w-[96px] border-2 border-blue-200 shadow-sm" src="{{product.image.url}}" width="96"
+                <img class="rounded-lg object-cover h-[72px] w-[96px] border-2 border-blue-200 shadow-sm" src="{{product.image}}" width="96"
                     height="72" alt="Product's Image" />
                 {% else %}
                 <img class="rounded-lg object-cover h-[72px] w-[96px] border-2 border-blue-200 shadow-sm" src="{% static 'img/no_img.jpeg' %}" width="96"

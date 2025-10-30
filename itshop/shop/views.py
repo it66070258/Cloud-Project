@@ -15,6 +15,11 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils import timezone
 from django.db import transaction
+import boto3
+
+s3client = boto3.client("s3")
+#s3_client = boto3.client('s3', aws_access_key_id='YOUR_ACCESS_KEY_ID', aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
+bucket_name = "giga-gadget-s3"
 
 def is_admin(user):
     return user.groups.filter(name="admin").exists()
@@ -116,6 +121,10 @@ class ProductListView(View):
                 When(discount_type="FIXED", then=(F("price") - F("discount_value"))),
             )
         ).order_by(orderby)
+        for i in products:
+            response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image)
+            object_content = response['Body'].read().decode('utf-8')
+            i.image = object_content
         if category!="all":
             products = products.filter(category__name=category)
         if brand!="all":
