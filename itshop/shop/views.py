@@ -131,11 +131,10 @@ class ProductListView(View):
                 content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
                 
                 encoded = base64.b64encode(image_bytes).decode("utf-8")
-                i.image = f"data:{content_type};base64,{encoded}"
-
+                i.image_base64 = f"data:{content_type};base64,{encoded}"
             except Exception as e:
                 print(f"error: {e}")
-                i.image = None
+                i.image_base64 = None
         if category!="all":
             products = products.filter(category__name=category)
         if brand!="all":
