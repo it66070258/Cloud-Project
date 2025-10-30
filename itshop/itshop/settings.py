@@ -115,6 +115,8 @@ CKEDITOR_CONFIGS = {
 
 # Internationalization
 
+STATIC_URL = '/static/'
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = "Asia/Bangkok"

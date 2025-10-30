@@ -17,6 +17,7 @@ from django.utils import timezone
 from django.db import transaction
 import boto3
 import base64
+from io import BytesIO
 
 s3client = boto3.client("s3")
 #s3_client = boto3.client('s3', aws_access_key_id='YOUR_ACCESS_KEY_ID', aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
@@ -123,17 +124,18 @@ class ProductListView(View):
             )
         ).order_by(orderby)
         for i in products:
+            key = f"media/{i.image.name}"
             try:
-                response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image.name)
+                response = s3client.get_object(Bucket=bucket_name, Key=key)
                 image_bytes = response["Body"].read()
-
-                # แปลงเป็น base64
+                content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
+                
                 encoded = base64.b64encode(image_bytes).decode("utf-8")
-                i.image = f"data:image/png;base64,{encoded}"
-            except s3client.exceptions.NoSuchKey:
-                print(f"File not found")
+                i.image = f"data:{content_type};base64,{encoded}"
+
             except Exception as e:
                 print(f"error: {e}")
+                i.image = None
         if category!="all":
             products = products.filter(category__name=category)
         if brand!="all":
