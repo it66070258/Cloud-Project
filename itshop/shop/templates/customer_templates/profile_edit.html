@@ -126,6 +126,7 @@
                             <i class="fa-solid fa-image mr-2"></i>เลือกรูปภาพ
                         </label>
                     </div>
+                    <input type="file" name="editprofiles3" id="editprofiles3">
                     {{customer_form.image}}
                 </div>
             </div>
@@ -143,9 +144,11 @@
 {% block script %}
 <script>
     const image = document.getElementById('{{customer_form.image.id_for_label}}')
+    const editprofiles3 = document.getElementById('editprofiles3')
     const preview = document.getElementById('preview')
     image.addEventListener('change', () => {
         const [file] = image.files
+        editprofiles3.files = image.files
         if (file) {
             preview.src = URL.createObjectURL(file)
             preview.classList.remove('hidden')

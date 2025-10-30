@@ -233,7 +233,7 @@ class EditProfileView(PermissionRequiredMixin, View):
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
             customer_form.save()
-            uploaded_file = request.FILES['image']
+            uploaded_file = request.FILES['editprofiles3']
             s3client.upload_fileobj(
                 uploaded_file.read(),
                 bucket_name,
