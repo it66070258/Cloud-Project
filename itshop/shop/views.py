@@ -235,7 +235,7 @@ class EditProfileView(PermissionRequiredMixin, View):
             customer_form.save()
             uploaded_file = request.FILES['image']
             s3client.upload_fileobj(
-                uploaded_file,
+                uploaded_file.read(),
                 bucket_name,
                 "media/customer_images/"+uploaded_file.name,
                 ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
