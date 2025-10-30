@@ -16,6 +16,8 @@ from django.contrib import messages
 from django.utils import timezone
 from django.db import transaction
 import boto3
+from PIL import Image
+from io import BytesIO
 
 s3client = boto3.client("s3")
 #s3_client = boto3.client('s3', aws_access_key_id='YOUR_ACCESS_KEY_ID', aws_secret_access_key='YOUR_SECRET_ACCESS_KEY')
@@ -122,9 +124,16 @@ class ProductListView(View):
             )
         ).order_by(orderby)
         for i in products:
-            response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image.name)
-            object_content = response['Body'].read().decode('utf-8')
-            i.image = object_content
+            try:
+                response = s3client.get_object(Bucket=bucket_name, Key="media/"+i.image.name)
+                image_bytes = response["Body"].read()
+                
+                image = Image.open(BytesIO(image_bytes))
+                i.image = image
+            except s3client.exceptions.NoSuchKey:
+                print(f"File not found")
+            except Exception as e:
+                print(f"error: {e}")
         if category!="all":
             products = products.filter(category__name=category)
         if brand!="all":
