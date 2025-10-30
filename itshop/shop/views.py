@@ -15,6 +15,12 @@ from django.core.exceptions import PermissionDenied
 from django.contrib import messages
 from django.utils import timezone
 from django.db import transaction
+import boto3
+import base64
+from io import BytesIO
+
+s3client = boto3.client("s3")
+bucket_name = "giga-gadget-s3"
 
 def is_admin(user):
     return user.groups.filter(name="admin").exists()
@@ -174,12 +180,21 @@ class EditProfileView(PermissionRequiredMixin, View):
         if user_form.is_valid() and customer_form.is_valid():
             user_form.save()
             customer_form.save()
+            print(request.FILES)
             return redirect("product_list")
         context = {
             "user_form": user_form,
             "customer_form": customer_form,
         }
         return render(request, "customer_templates/profile_edit.html", context)
+    
+    #uploaded_file = request.FILES['my_file']
+    #s3_client.upload_fileobj(
+    #                uploaded_file,
+    #                bucket_name,
+    #                s3_object_key,
+    #                ExtraArgs={'ContentType': uploaded_file.content_type} # Optional: Set Content-Type
+    #            )
 
 # ADDRESS
 class AddressView(PermissionRequiredMixin, View):
