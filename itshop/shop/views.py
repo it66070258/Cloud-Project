@@ -32,6 +32,36 @@ def check_in_wishlist(customer, product_id):
 def is_cartitem_owner(customer, cartitem):
     return cartitem.objects.filter(customer=customer).exists()
 
+def attach_cutomer_image(customer):
+    if customer.image.name:
+        key = f"media/{customer.image.name}"
+        try:
+            response = s3client.get_object(Bucket=bucket_name, Key=key)
+            image_bytes = response["Body"].read()
+            content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
+                        
+            encoded = base64.b64encode(image_bytes).decode("utf-8")
+            customer.image_base64 = f"data:{content_type};base64,{encoded}"
+        except Exception as e:
+            print(f"error: {e}")
+            customer.image_base64 = None
+
+def attach_product_images(products):
+    for product in products:
+        if not product.image.name: 
+            continue
+        key = f"media/{product.image.name}"
+        try:
+            response = s3client.get_object(Bucket=bucket_name, Key=key)
+            image_bytes = response["Body"].read()
+            content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
+                
+            encoded = base64.b64encode(image_bytes).decode("utf-8")
+            product.image_base64 = f"data:{content_type};base64,{encoded}"
+        except Exception as e:
+            print(f"error: {e}")
+            product.image_base64 = None
+
 def get_cart_items(customer):
     cart_items = CartItem.objects.filter(customer=customer, product__is_active=True, product__stock__gt=0).annotate(
         sale_price=Case(
@@ -111,6 +141,8 @@ class ChangePasswordView(View):
 # PRODUCT (customer)
 class ProductListView(View):
     def get(self, request):
+        if request.user.is_authenticated and request.user.customer:
+            attach_cutomer_image(request.user.customer)
         search = request.GET.get("search", "")
         category = request.GET.get("category", "all")
         brand = request.GET.get("brand", "all")
@@ -123,18 +155,6 @@ class ProductListView(View):
                 When(discount_type="FIXED", then=(F("price") - F("discount_value"))),
             )
         ).order_by(orderby)
-        for i in products:
-            key = f"media/{i.image.name}"
-            try:
-                response = s3client.get_object(Bucket=bucket_name, Key=key)
-                image_bytes = response["Body"].read()
-                content_type = response.get("ContentType", "image/jpeg")  # ตรวจ MIME type
-                
-                encoded = base64.b64encode(image_bytes).decode("utf-8")
-                i.image_base64 = f"data:{content_type};base64,{encoded}"
-            except Exception as e:
-                print(f"error: {e}")
-                i.image_base64 = None
         if category!="all":
             products = products.filter(category__name=category)
         if brand!="all":
@@ -147,6 +167,8 @@ class ProductListView(View):
             brands = Brand.objects.filter(product__category__name=category).distinct()
         else:
             brands = Brand.objects.all()
+        
+        attach_product_images(products)
 
         context = {
             "products": products,
