@@ -155,7 +155,7 @@ class ChangePasswordView(View):
 # PRODUCT (customer)
 class ProductListView(View):
     def get(self, request):
-        if request.user.is_authenticated and is_admin(request.user):
+        if request.user.is_authenticated and not is_admin(request.user):
             attach_cutomer_image(request.user.customer)
         search = request.GET.get("search", "")
         category = request.GET.get("category", "all")
