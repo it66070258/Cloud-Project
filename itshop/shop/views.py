@@ -139,6 +139,7 @@ class LogoutView(View):
 class ChangePasswordView(View):
     def get(self, request):
         form = PasswordChangeForm(user=request.user)
+        attach_cutomer_image(request.user.customer)
         context = {"form": form}
         return render(request, 'customer_templates/change_password.html', context)
     def post(self, request):
@@ -147,6 +148,7 @@ class ChangePasswordView(View):
             user = form.save()
             update_session_auth_hash(request, user)  # Important for keeping the user logged in
             return redirect('profile')
+        attach_cutomer_image(request.user.customer)
         context = {"form": form}
         return render(request, 'customer_templates/change_password.html', context)
 
